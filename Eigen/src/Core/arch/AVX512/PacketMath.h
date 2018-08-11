@@ -19,7 +19,11 @@ namespace internal {
 #endif
 
 #ifndef EIGEN_ARCH_DEFAULT_NUMBER_OF_REGISTERS
+#ifdef __AVX512VL__
+#define EIGEN_ARCH_DEFAULT_NUMBER_OF_REGISTERS 32
+#else
 #define EIGEN_ARCH_DEFAULT_NUMBER_OF_REGISTERS (2*sizeof(void*))
+#endif
 #endif
 
 #ifdef __FMA__
