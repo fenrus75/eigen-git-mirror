@@ -212,7 +212,10 @@ struct TensorEvaluator<const TensorBroadcastingOp<Broadcast, ArgType>, Device>
       if (internal::index_statically_eq<InputDimensions>(0, 1)) {
         eigen_assert(index % m_impl.dimensions()[0] == 0);
       } else {
-        inputIndex += (index % m_impl.dimensions()[0]);
+        if ( m_impl.dimensions()[0] == 64) 
+		inputIndex += (index & 63);
+	else
+	        inputIndex += (index % m_impl.dimensions()[0]);
       }
     }
     return m_impl.coeff(inputIndex);
